@@ -1,0 +1,50 @@
+// Mixin for the main timeline container (max-width, relative positioning, etc.)
+@mixin timeline-base {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  // Mixin for the vertical line in the middle
+  @mixin timeline-line($line-color: whitesmoke) {
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    background: $line-color;
+    top: 0;
+    left: 50%;
+    margin-left: -2px;
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+   
+  }
+  
+  // Mixin for the container that holds the timeline items (left or right)
+  @mixin timeline-container($side: left) {
+    padding: 10px 30px;
+    position: relative;
+    width: 50%;
+  
+    @if $side == left {
+      left: 0;
+    } @else if $side == right {
+      left: 50%;
+    }
+  }
+  
+  // Mixin for each timeline item (cards)
+  @mixin timeline-item(
+    $bg-color: rgba(9, 15, 58, 0.622),
+    $text-color: whitesmoke,
+    $shadow: 0 0 15px 0px rgb(175, 193, 241)
+  ) {
+    padding: 20px 30px;
+    position: relative;
+    background-color: $bg-color;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: $text-color;
+    line-height: 1.5rem;
+    box-shadow: $shadow;
+  }

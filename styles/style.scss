@@ -1,20 +1,39 @@
+@import "timeline-mixins";
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+.cursor-star {
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: radial-gradient(circle, #fff 50%, transparent 50%);
+	pointer-events: none; /* gwiazdki nie będą przechwytywać kliknięć */
+	opacity: 1;
+	transform: scale(1);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+	filter: blur(1px);
+}
+
 body {
+	cursor: url("data:image/svg+xml,%3Csvg%20width%3D'32'%20height%3D'32'%20viewBox%3D'0%200%2032%2032'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cdefs%3E%3Cfilter%20id%3D'neon'%20x%3D'-50%25'%20y%3D'-50%25'%20width%3D'200%25'%20height%3D'200%25'%3E%3CfeDropShadow%20dx%3D'0'%20dy%3D'0'%20stdDeviation%3D'2'%20flood-color%3D'%233b91dc'%20flood-opacity%3D'1'%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cpath%20fill%3D'%23ffffff'%20stroke%3D'%23053081'%20stroke-width%3D'1'%20d%3D'M4%204%20L28%2016%20L20%2016%20L20%2028%20Z'%20filter%3D'url(%23neon)'%2F%3E%3C%2Fsvg%3E")
+			4 4,
+		auto;
+
 	background-image: linear-gradient(
 		to bottom,
-		black 50px,
-		rgb(5, 9, 32),
-		rgb(7, 12, 40),
-		rgb(11, 18, 56),
-		rgb(16, 25, 74),
-		rgb(23, 33, 91),
-		rgb(35, 46, 106),
-		rgb(112, 54, 10)
+		black 0%,
+		rgb(5, 9, 32) 15%,
+		rgb(3, 8, 36) 30%,
+		rgb(7, 13, 46) 45%,
+		rgb(14, 21, 59) 60%,
+		rgb(22, 31, 78) 75%,
+		rgb(35, 46, 106) 85%,
+		rgb(62, 76, 101) 95%,
+		rgb(125, 118, 86) 100%
 	);
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -53,9 +72,13 @@ body {
 			font-family: "Love Light", cursive;
 		}
 
-		i {
-			font-size: 2rem;
-			padding: 5px;
+		a {
+			text-decoration: none;
+			color: whitesmoke;
+			i {
+				font-size: 2rem;
+				padding: 5px;
+			}
 		}
 	}
 
@@ -142,6 +165,13 @@ body {
 			opacity: 1;
 		}
 	}
+	h2 {
+		padding: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 3rem;
+	}
 
 	// Main part styles
 	// ==========================================
@@ -155,13 +185,7 @@ body {
 		letter-spacing: 1px;
 		padding: 20px;
 
-		h2 {
-			padding: 50px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 3rem;
-		}
+		
 
 		section {
 			height: 100vh;
@@ -214,9 +238,83 @@ body {
 				}
 			}
 		}
+
+		// Education section
+		// ====================================
+		// ====================================
+
+		#education {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.education-timeline {
+				@include timeline-base;
+
+				// The vertical line
+				.timeline-line {
+					@include timeline-line(whitesmoke);
+				}
+
+				.container {
+					@include timeline-container(left);
+
+					.timeline-item {
+						@include timeline-item;
+					}
+				}
+
+				.left-container {
+					@include timeline-container(left);
+				}
+
+				.right-container {
+					@include timeline-container(right);
+				}
+			}
+		}
+
+		// Experience section
+		// ================================
+		// ================================
+
+		#experience {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height: 200vh;
+
+			.experience-timeline {
+				@include timeline-base;
+
+				.timeline-line {
+					@include timeline-line(#ccc);
+				}
+
+				.experienceItem-container {
+					@include timeline-container(left);
+
+					.experience-item {
+						@include timeline-item();
+					}
+				}
+
+				.left-container {
+					@include timeline-container(left);
+				}
+
+				.right-container {
+					@include timeline-container(right);
+				}
+			}
+		}
 	}
 
 	footer {
-		background-color: black;
+		position: relative;
+		background: url(/assets/ForestFooter.svg)  no-repeat bottom center;;
+		background-size: cover;
+		height: 100vh;
 	}
 }
